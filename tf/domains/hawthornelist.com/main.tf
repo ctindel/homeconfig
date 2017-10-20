@@ -1,18 +1,15 @@
-terraform {
-  backend "s3" {
-      bucket = "ctindel-us-east-2"
-      key = "terraform/env/global/terraform.tfstate"
-      region = "us-east-2"
+data "terraform_remote_state" "global" {
+  backend = "s3"
+
+  config {
+    region  = "${var.region}"
+    bucket  = "${var.s3_bucket_prefix}-${var.region}"
+    key     = "demos/terraform/env/global/terraform.tfstate"
   }
 }
 
 provider "aws" {
   region = "${var.region}"
-}
-
-provider "aws" {
-    alias = "region_backup"
-    region = "${var.region_backup}"
 }
 
 module "route53" {
@@ -27,7 +24,6 @@ module "s3" {
   source = "./s3"
 
   region              = "${var.region}"
-  region_backup       = "${var.region_backup}"
   s3_bucket_prefix    = "${var.s3_bucket_prefix}"
   r53_domain          = "${var.r53_domain}"
 }

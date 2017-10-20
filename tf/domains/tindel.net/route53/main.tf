@@ -1,4 +1,4 @@
-resource "aws_route53_record" "domain" {
+resource "aws_route53_record" "tindel_net" {
   zone_id = "${var.r53_zone_id}"
   name    = "${var.dns_domain}"
   type    = "A"
@@ -26,10 +26,10 @@ resource "aws_route53_record" "tindel_net_mx" {
   zone_id = "${var.r53_zone_id}"
   name    = "${var.dns_domain}"
   type    = "MX"
-  ttl     = "86048"
+  ttl     = "3600"
   records = ["1 aspmx.l.google.com",
              "5 alt1.aspmx.l.google.com",
              "5 alt2.aspmx.l.google.com",
-             "10 aspmx1.googlemail.com",
-             "10 aspmx2.googlemail.com"]
+             "10 alt3.aspmx.l.google.com",
+             "10 alt4.aspmx.l.google.com"]
 }

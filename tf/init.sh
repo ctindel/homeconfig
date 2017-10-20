@@ -13,15 +13,15 @@
 ##### Constants
 
 # ENV_DIR should be "global"
-readonly GLOBAL_DIR=${PWD##*/}
+readonly ROOT_DIR=${PWD##*/}
 readonly CTINDEL_BUCKET="ctindel"
 
 ##### Functions
 
 ##### Main
 
-if [[ $GLOBAL_DIR != "global" ]]; then
-    printf '\nERROR: This script can only be run from the global directory'
+if [[ $ROOT_DIR != "tf" ]]; then
+    printf '\nERROR: This script can only be run from the tf directory'
     exit 1
 fi
 
