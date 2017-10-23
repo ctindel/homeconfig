@@ -46,7 +46,7 @@ resource "aws_route53_record" "start_hawthornelist_com" {
   records = ["ghs.google.com"]
 }
 
-resource "aws_route53_record" "hawthornelist_mx" {
+resource "aws_route53_record" "hawthornelist_com_mx" {
   zone_id = "${var.r53_zone_id}"
   name    = "${var.dns_domain}"
   type    = "MX"

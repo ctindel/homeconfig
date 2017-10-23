@@ -1,4 +1,4 @@
 # S3
-output "tindel_net_s3_bucket_id" {
-  value = "${module.s3.tindel_net_s3_bucket_id}"
+output "tindelmg_com_s3_bucket_id" {
+  value = "${module.s3.tindelmg_com_s3_bucket_id}"
 }

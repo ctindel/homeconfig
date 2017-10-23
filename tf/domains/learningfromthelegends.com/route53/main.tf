@@ -54,7 +54,7 @@ resource "aws_route53_record" "blog_learningfromthelegends_com" {
   records = ["ghs.googlehosted.com"]
 }
 
-resource "aws_route53_record" "learningfromthelegends_mx" {
+resource "aws_route53_record" "learningfromthelegends_com_mx" {
   zone_id = "${var.r53_zone_id}"
   name    = "${var.dns_domain}"
   type    = "MX"

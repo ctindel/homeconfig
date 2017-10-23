@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "s3_tindel_net_bucket" {
+resource "aws_s3_bucket" "s3_learningfromthelegends_com_bucket" {
   bucket = "${var.r53_domain}"
   acl = "public-read"
   tags {
