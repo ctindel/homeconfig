@@ -45,6 +45,12 @@ module "tindelmg_com" {
     s3_bucket_prefix = "${var.s3_bucket_prefix}"
 }
 
+module "cardiacnp_com" {
+    source           = "./domains/cardiacnp.com"
+    region           = "${var.region}"
+    s3_bucket_prefix = "${var.s3_bucket_prefix}"
+}
+
 module "s3" {
   source = "./s3"
 
