@@ -14,6 +14,14 @@ resource "aws_route53_record" "www_learningfromthelegends_com" {
   records = ["${var.dns_domain}"]
 }
 
+resource "aws_route53_record" "new_learningfromthelegends_com" {
+  zone_id = "${var.r53_zone_id}"
+  name    = "new"
+  type    = "CNAME"
+  ttl     = "86048"
+  records = ["ctindel.github.io"]
+}
+
 resource "aws_route53_record" "calendar_learningfromthelegends_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "calendar"
