@@ -19,7 +19,7 @@ resource "aws_route53_record" "router_tindel_net" {
   name    = "router"
   type    = "A"
   ttl     = "86048"
-  records = ["67.243.183.129"]
+  records = ["67.243.185.140"]
 }
 
 resource "aws_route53_record" "tindel_net_mx" {
