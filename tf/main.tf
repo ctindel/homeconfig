@@ -51,6 +51,12 @@ module "cardiacnp_com" {
     s3_bucket_prefix = "${var.s3_bucket_prefix}"
 }
 
+module "softwareinblue_com" {
+    source           = "./domains/softwareinblue.com"
+    region           = "${var.region}"
+    s3_bucket_prefix = "${var.s3_bucket_prefix}"
+}
+
 module "s3" {
   source = "./s3"
 

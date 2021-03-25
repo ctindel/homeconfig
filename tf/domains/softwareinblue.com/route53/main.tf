@@ -1,4 +1,4 @@
-resource "aws_route53_record" "learningfromthelegends_com" {
+resource "aws_route53_record" "softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "${var.dns_domain}"
   type    = "A"
@@ -6,7 +6,7 @@ resource "aws_route53_record" "learningfromthelegends_com" {
   records = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
 }
 
-resource "aws_route53_record" "www_learningfromthelegends_com" {
+resource "aws_route53_record" "www_softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "www"
   type    = "CNAME"
@@ -14,7 +14,18 @@ resource "aws_route53_record" "www_learningfromthelegends_com" {
   records = ["ctindel.github.io"]
 }
 
-resource "aws_route53_record" "calendar_learningfromthelegends_com" {
+#resource "aws_route53_record" "www_softwareinblue_com" {
+#  zone_id = "${var.r53_zone_id}"
+#  name    = "www"
+#  type    = "A"
+#  alias {
+#    name                   = "${var.dns_domain}"
+#    zone_id                = "${var.r53_zone_id}"
+#    evaluate_target_health = false
+#  }
+#}
+
+resource "aws_route53_record" "calendar_softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "calendar"
   type    = "CNAME"
@@ -22,7 +33,7 @@ resource "aws_route53_record" "calendar_learningfromthelegends_com" {
   records = ["ghs.google.com"]
 }
 
-resource "aws_route53_record" "docs_learningfromthelegends_com" {
+resource "aws_route53_record" "docs_softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "docs"
   type    = "CNAME"
@@ -30,7 +41,7 @@ resource "aws_route53_record" "docs_learningfromthelegends_com" {
   records = ["ghs.google.com"]
 }
 
-resource "aws_route53_record" "mail_learningfromthelegends_com" {
+resource "aws_route53_record" "mail_softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "mail"
   type    = "CNAME"
@@ -38,7 +49,7 @@ resource "aws_route53_record" "mail_learningfromthelegends_com" {
   records = ["ghs.google.com"]
 }
 
-resource "aws_route53_record" "start_learningfromthelegends_com" {
+resource "aws_route53_record" "start_softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "start"
   type    = "CNAME"
@@ -46,7 +57,7 @@ resource "aws_route53_record" "start_learningfromthelegends_com" {
   records = ["ghs.google.com"]
 }
 
-resource "aws_route53_record" "blog_learningfromthelegends_com" {
+resource "aws_route53_record" "blog_softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "blog"
   type    = "CNAME"
@@ -54,7 +65,7 @@ resource "aws_route53_record" "blog_learningfromthelegends_com" {
   records = ["ghs.googlehosted.com"]
 }
 
-resource "aws_route53_record" "learningfromthelegends_com_mx" {
+resource "aws_route53_record" "softwareinblue_com_mx" {
   zone_id = "${var.r53_zone_id}"
   name    = "${var.dns_domain}"
   type    = "MX"
