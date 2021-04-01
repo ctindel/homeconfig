@@ -10,6 +10,13 @@ provider "aws" {
   region = "${var.region}"
 }
 
+# Additional provider configuration for west coast region; resources can
+# reference this as `aws.west`.
+provider "aws" {
+  alias  = "us-east-1"
+  region = "us-east-1"
+}
+
 provider "aws" {
     alias = "region_backup"
     region = "${var.region_backup}"
