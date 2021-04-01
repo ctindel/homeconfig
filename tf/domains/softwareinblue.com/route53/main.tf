@@ -18,10 +18,10 @@ resource "aws_route53_record" "www_softwareinblue_com" {
   type    = "A"
 
   alias {
-    #name                   = "${var.softwareinblue_com_cf_domain}"
-    #zone_id                = "${var.softwareinblue_com_cf_hosted_zone_id}"
-    name                   = "${var.www_softwareinblue_com_s3_bucket_website_domain}"
-    zone_id                = "${var.www_softwareinblue_com_s3_bucket_hosted_zone_id}"
+    name                   = "${var.www_softwareinblue_com_cf_domain}"
+    zone_id                = "${var.www_softwareinblue_com_cf_hosted_zone_id}"
+    #name                   = "${var.www_softwareinblue_com_s3_bucket_website_domain}"
+    #zone_id                = "${var.www_softwareinblue_com_s3_bucket_hosted_zone_id}"
     evaluate_target_health = true
   }
 }
