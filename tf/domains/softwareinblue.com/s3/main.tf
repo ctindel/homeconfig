@@ -31,3 +31,15 @@ resource "aws_s3_bucket" "s3_softwareinblue_com_bucket" {
 EOF
 
 }
+
+resource "aws_s3_bucket" "s3_www_softwareinblue_com_bucket" {
+  bucket = "www.${var.r53_domain}"
+  acl = "public-read"
+  tags {
+    Name = "${var.r53_domain}"
+  }
+
+  website {
+    redirect_all_requests_to = "${var.r53_domain}"
+  }
+}

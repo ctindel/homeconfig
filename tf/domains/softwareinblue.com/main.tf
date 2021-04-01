@@ -18,6 +18,12 @@ module "route53" {
   region          = "${var.region}"
   dns_domain      = "${var.r53_domain}"
   r53_zone_id     = "${var.r53_zone_id}"
+  softwareinblue_com_s3_bucket_id = "${module.s3.softwareinblue_com_s3_bucket_id}"
+  softwareinblue_com_s3_bucket_website_domain = "${module.s3.softwareinblue_com_s3_bucket_website_domain}"
+  softwareinblue_com_s3_bucket_hosted_zone_id = "${module.s3.softwareinblue_com_s3_bucket_hosted_zone_id}"
+  www_softwareinblue_com_s3_bucket_id = "${module.s3.www_softwareinblue_com_s3_bucket_id}"
+  www_softwareinblue_com_s3_bucket_website_domain = "${module.s3.www_softwareinblue_com_s3_bucket_website_domain}"
+  www_softwareinblue_com_s3_bucket_hosted_zone_id = "${module.s3.www_softwareinblue_com_s3_bucket_hosted_zone_id}"
 }
 
 module "s3" {
