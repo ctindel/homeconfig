@@ -88,16 +88,12 @@ resource "aws_cloudfront_distribution" "www_cdn" {
     # can switch it back.
     domain_name = "${module.s3.www_softwareinblue_com_s3_bucket_website_endpoint}"
     #domain_name = "www.${var.r53_domain}.s3-website.${var.region}.amazonaws.com"
-    #domain_name = "www.${var.r53_domain}.s3.amazonaws.com"
     custom_origin_config {
       http_port = "80"
       https_port = "443"
       origin_protocol_policy = "http-only"
       origin_ssl_protocols = ["TLSv1", "TLSv1.1", "TLSv1.2"]
     }
-    #s3_origin_config {
-      #origin_access_identity = "${aws_cloudfront_origin_access_identity.www_softwareinblue_com_oai.cloudfront_access_identity_path}"
-    #}
   }
 
   # If using route53 aliases for DNS we need to declare it here too, otherwise we'll get 403s.
@@ -105,7 +101,7 @@ resource "aws_cloudfront_distribution" "www_cdn" {
 
   enabled             = true
   is_ipv6_enabled     = true
-
+  # no default_root_object for the redirect bucket
   #default_root_object = "index.html"
 
   default_cache_behavior {
