@@ -2,7 +2,7 @@
 const path = require('path');
 
 exports.handler = (event, context, callback) => {
-    console.log(JSON.stringify(event));
+    //console.log(JSON.stringify(event));
     // Extract the request from the CloudFront event that is sent to Lambda@Edge 
     var request = event.Records[0].cf.request;
 
@@ -18,8 +18,8 @@ exports.handler = (event, context, callback) => {
         newuri = newuri.replace(/\/?$/, '\/index.html');
     }
     // Log the URI as received by CloudFront and the new URI to be used to fetch from origin
-    console.log("Old URI: " + olduri);
-    console.log("New URI: " + newuri);
+    //console.log("Old URI: " + olduri);
+    //console.log("New URI: " + newuri);
     
     // Replace the received URI with the URI that includes the index page
     request.uri = newuri;
