@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "s3_softwareinblue_com_bucket" {
   bucket = "${var.r53_domain}"
-  #acl = "public-read"
-  acl = "private"
+  acl = "public-read"
+  #acl = "private"
   tags {
     Name = "${var.r53_domain}"
   }
@@ -24,12 +24,12 @@ resource "aws_s3_bucket" "s3_softwareinblue_com_bucket" {
   }
 }
 
-resource "aws_s3_bucket_policy" "my_bucket_policy" {
+resource "aws_s3_bucket_policy" "my_bucket_go_policy" {
   	bucket = "${aws_s3_bucket.s3_softwareinblue_com_bucket.id}"
-  	policy = "${data.aws_iam_policy_document.s3_softwareinblue_com_cf_policy.json}"
+  	policy = "${data.aws_iam_policy_document.s3_softwareinblue_com_cf_go_policy.json}"
 }
 
-data "aws_iam_policy_document" "s3_softwareinblue_com_cf_policy" {
+data "aws_iam_policy_document" "s3_softwareinblue_com_cf_go_policy" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.s3_softwareinblue_com_bucket.arn}/*"]
@@ -40,6 +40,25 @@ data "aws_iam_policy_document" "s3_softwareinblue_com_cf_policy" {
     }
   }
 }
+
+#resource "aws_s3_bucket_policy" "my_bucket_lb_policy" {
+#    # This just prevents us from trying to apply both in parallel and failing
+#    depends_on = ["aws_s3_bucket_policy.my_bucket_go_policy"]
+#  	bucket = "${aws_s3_bucket.s3_softwareinblue_com_bucket.id}"
+#  	policy = "${data.aws_iam_policy_document.s3_softwareinblue_com_cf_lb_policy.json}"
+#}
+#
+#data "aws_iam_policy_document" "s3_softwareinblue_com_cf_lb_policy" {
+#  statement {
+#    actions   = ["s3:ListBucket"]
+#    resources = ["${aws_s3_bucket.s3_softwareinblue_com_bucket.arn}"]
+#
+#    principals {
+#      type        = "AWS"
+#      identifiers = ["${var.cf_oai_arn}"]
+#    }
+#  }
+#}
 
 resource "aws_s3_bucket" "s3_www_softwareinblue_com_bucket" {
   bucket = "www.${var.r53_domain}"

@@ -57,6 +57,13 @@ resource "aws_cloudfront_distribution" "cdn" {
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
+
+    # Cloudfront doesn't properly request subdirectory index.html files so we
+    # need to have this lambda function rewrite them
+    lambda_function_association {
+      event_type = "origin-request"
+      lambda_arn = "${aws_lambda_function.index_rewrite_lambda.qualified_arn}"
+    }
   }
 
   # The cheapest priceclass
@@ -166,3 +173,95 @@ module "s3" {
   r53_domain          = "${var.r53_domain}"
   cf_oai_arn          = "${aws_cloudfront_origin_access_identity.softwareinblue_com_oai.iam_arn}"
 }
+
+#resource "aws_iam_role" "lambda_edge_exec" {
+#  assume_role_policy = <<EOF
+#{
+#  "Version": "2012-10-17",
+#  "Statement": [
+#    {
+#      "Action": "sts:AssumeRole",
+#      "Principal": {
+#        "Service": ["lambda.amazonaws.com", "edgelambda.amazonaws.com"]
+#      },
+#      "Effect": "Allow"
+#    }
+#  ]
+#}
+#EOF
+#}
+
+data "archive_file" "index_rewrite_zip" {
+  type        = "zip"
+  source_file  = "${path.module}/index_rewrite_lambda/handler.js"
+  output_path = "${path.module}/index_rewrite_lambda/deployment.zip"
+}
+
+resource "aws_iam_role" "index_rewrite_lambda_role" {
+  name = "index_rewrite_lambda_role"
+
+  assume_role_policy = <<-EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "sts:AssumeRole",
+        "Principal": {
+          "Service": ["lambda.amazonaws.com", "edgelambda.amazonaws.com"]
+        },
+        "Effect": "Allow",
+        "Sid": ""
+      }
+    ]
+  }
+  EOF
+}
+
+resource "aws_iam_role_policy" "test_policy" {
+  name = "test_policy"
+  role = "${aws_iam_role.index_rewrite_lambda_role.id}"
+
+  # logs:CreateLogGroup is omitted so terraform can manage the log
+  # group and set a retention policy, we don't want the
+  # lambda function creating this group and having no
+  # no retention policy
+  policy = <<-EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Resource": [
+          "arn:aws:logs:*:*:*"
+        ]
+      }
+    ]
+  }
+  EOF
+}
+
+resource "aws_lambda_function" "index_rewrite_lambda" {
+	# ...
+  provider      = "aws.us-east-1"
+  publish       = true
+  filename      = "${path.module}/index_rewrite_lambda/deployment.zip"
+  function_name = "softwareinblue_index_rewrite"
+  role          = "${aws_iam_role.index_rewrite_lambda_role.arn}"
+  handler       = "handler.handler"
+
+  source_code_hash = "${data.archive_file.index_rewrite_zip.output_base64sha256}"
+  runtime       = "nodejs12.x"
+}
+
+resource "aws_cloudwatch_log_group" "loggroup" {
+  # Don't ask me why the region name is prepended to the lambda function I have
+  # no idea
+  provider      = "aws.us-east-1"
+  name              = "/aws/lambda/us-east-1.${aws_lambda_function.index_rewrite_lambda.function_name}"
+  retention_in_days = 14
+}
+
