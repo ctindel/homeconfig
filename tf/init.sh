@@ -28,9 +28,9 @@ fi
 # clear out any existing local state
 [[ -d .terraform ]] && rm -rf .terraform
 
-terraform init
+terraform.10 init -verify-plugins=false
 
-terraform get -update
+terraform.10 get -update
 
 if [[ $? -ne 0 ]]; then
     printf '\nMake sure any $AWS_ variables you currently have exported match the chosen profile!\n'

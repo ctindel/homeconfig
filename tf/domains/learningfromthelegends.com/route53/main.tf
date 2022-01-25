@@ -1,18 +1,18 @@
-resource "aws_route53_record" "learningfromthelegends_com" {
-  zone_id = "${var.r53_zone_id}"
-  name    = "${var.dns_domain}"
-  type    = "A"
-  ttl     = "86048"
-  records = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
-}
+#resource "aws_route53_record" "learningfromthelegends_com" {
+  #zone_id = "${var.r53_zone_id}"
+  #name    = "${var.dns_domain}"
+  #type    = "A"
+  #ttl     = "86048"
+  #records = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"]
+#}
 
-resource "aws_route53_record" "www_learningfromthelegends_com" {
-  zone_id = "${var.r53_zone_id}"
-  name    = "www"
-  type    = "CNAME"
-  ttl     = "86048"
-  records = ["ctindel.github.io"]
-}
+#resource "aws_route53_record" "www_learningfromthelegends_com" {
+  #zone_id = "${var.r53_zone_id}"
+  #name    = "www"
+  #type    = "CNAME"
+  #ttl     = "86048"
+  #records = ["ctindel.github.io"]
+#}
 
 resource "aws_route53_record" "calendar_learningfromthelegends_com" {
   zone_id = "${var.r53_zone_id}"
