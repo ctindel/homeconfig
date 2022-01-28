@@ -1,31 +1,3 @@
-resource "aws_route53_record" "softwareinblue_com" {
-  zone_id = "${var.r53_zone_id}"
-  name    = "${var.dns_domain}"
-  type    = "A"
-
-  alias {
-    name                   = "${var.softwareinblue_com_cf_domain}"
-    zone_id                = "${var.softwareinblue_com_cf_hosted_zone_id}"
-    #name                   = "${var.softwareinblue_com_s3_bucket_website_domain}"
-    #zone_id                = "${var.softwareinblue_com_s3_bucket_hosted_zone_id}"
-    evaluate_target_health = true
-  }
-}
-
-resource "aws_route53_record" "www_softwareinblue_com" {
-  zone_id = "${var.r53_zone_id}"
-  name    = "www"
-  type    = "A"
-
-  alias {
-    name                   = "${var.www_softwareinblue_com_cf_domain}"
-    zone_id                = "${var.www_softwareinblue_com_cf_hosted_zone_id}"
-    #name                   = "${var.www_softwareinblue_com_s3_bucket_website_domain}"
-    #zone_id                = "${var.www_softwareinblue_com_s3_bucket_hosted_zone_id}"
-    evaluate_target_health = true
-  }
-}
-
 resource "aws_route53_record" "calendar_softwareinblue_com" {
   zone_id = "${var.r53_zone_id}"
   name    = "calendar"
